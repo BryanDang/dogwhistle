@@ -21,11 +21,7 @@ class DogWhistleProcessor:
         # Get API key from environment
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            # For demo, try a fallback encoded key
-            import base64
-            # This is a base64 encoded key for demo purposes
-            encoded_key = "REMOVED-KEY-B64"
-            api_key = base64.b64decode(encoded_key).decode('utf-8')
+            raise RuntimeError("OPENAI_API_KEY is not set")
         self.client = AsyncOpenAI(api_key=api_key)
     
     async def process_meeting(self, audio_file_path: str, meeting_id: str) -> Dict:
